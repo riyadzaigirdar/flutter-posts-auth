@@ -4,13 +4,42 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    Scaffold(
+        .... ,
+        .... ,
+        drawer: Drawer(
+        // elevation: 100,
+        child: ListView(
+          padding: const EdgeInsets.all(0),
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text("riyad zaigirdar"), 
+              accountEmail: Text("riyadzaigir280@gmail.com"),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage("https://avatars.githubusercontent.com/u/42799939?s=460&u=975ca8612ee36f030fc1952cd7ded42ce01efb69&v=4"),
+                ),
+              ),
+            // DrawerHeader(
+            //   child: Text("My Drawer"),
+            //   decoration: BoxDecoration(color: Colors.purple),
+            //   ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text("Riyad Zaigirdar"),
+              subtitle: Text("Software Developer"),
+              trailing: GestureDetector(child:Icon(Icons.edit), onDoubleTap: ()=>printer(),),
+              onTap: (){},
+              onLongPress: (){},
+            ),
+            ListTile(
+              leading:Icon(Icons.email),
+              title: Text("Email"),
+              subtitle: Text("riyadzaigir280@gmail.com"),
+              trailing: Icon(Icons.electric_bike),
+              onTap: (){},
+              onLongPress: (){},
+            )
+          ],
+        ),
+        ),
+    )
