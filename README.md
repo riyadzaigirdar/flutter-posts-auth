@@ -44,3 +44,21 @@ A new Flutter project.
             child: CircularProgressIndicator(),
           ),
     )
+
+# you can use grid view build
+
+    body: data != null
+      ? GridView.builder(
+          gridDelegate:
+              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(data[index]["title"]),
+              subtitle: Text("ID: ${data[index]["id"]}"),
+              leading: Image.network(data[index]["url"]),
+              // leading: Ima,
+            );
+          })
+      : Center(
+          child: CircularProgressIndicator(),
+        ),
