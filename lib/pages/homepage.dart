@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:posts/drawer.dart';
-import 'package:posts/namecard.dart';
+// import 'package:posts/namecard.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class MyHome extends StatefulWidget {
   @override
@@ -19,6 +21,29 @@ class _MyHomeState extends State<MyHome> {
   //  });
   //}
 
+  var url = "https://jsonplaceholder.typicode.com/photos";
+  var data;
+
+// nh_h08_riyad
+// riyad{"json":1}
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  fetchData() async {
+    var res = await http.get(Uri.parse(url));
+    data = jsonDecode(res.body);
+    setState(() {});
+    // print(data);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,12 +52,28 @@ class _MyHomeState extends State<MyHome> {
         title: Align(
             alignment: Alignment.centerLeft, child: Text("My Awesome App")),
       ),
-      body: SingleChildScrollView(
-        child: NameCardWidget(
-            myTextController: myTextController,
-            myname: myname,
-            myEmailController: myEmailController),
-      ),
+      body: data != null
+          ? ListView.builder(itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(data[index]["title"]),
+                subtitle: Text("ID: ${data[index]["id"]}"),
+                leading: Image.network(data[index]["url"]),
+                // leading: Ima,
+              );
+            })
+          : Center(
+              child: CircularProgressIndicator(),
+            ),
+      //   Padding(
+      // padding: const EdgeInsets.all(8.0),
+      // child:
+      //),
+      // SingleChildScrollView(
+      //   child: NameCardWidget(
+      //       myTextController: myTextController,
+      //       myname: myname,
+      //       myEmailController: myEmailController),
+      // ),
       drawer: MyDrawer(),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {

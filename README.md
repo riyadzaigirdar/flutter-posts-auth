@@ -2,32 +2,45 @@
 
 A new Flutter project.
 
-## Getting Started
+# Install delependencies like npm i
 
-    var myname = "Here your name will appear";
+    flutter packages get
 
-    TextEditingController myTextController = new TextEditingController();
+## Fetch data using http in widget load
 
-    void doSomething(text){
-      setState(() {
-        myname = text;
-        });
-      }
-    
-    TextField(
-          controller: myTextController,
-          onChanged: (text)=>doSomething(text),
-          decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: "Enter Some Text",
-          labelText: "Name"
+    var url = "https://jsonplaceholder.typicode.com/photos";
+    var data;
+
+    @override
+    void initState() {
+      super.initState();
+      fetchData();
+    }
+
+    fetchData() async {
+      var res = await http.get(Uri.parse(url));
+      data = jsonDecode(res.body);
+      setState(() {});
+      // print(data);
+    }
+
+    @override
+    void dispose() {
+      super.dispose();
+    }
+
+# Then show it in list view and show loading when fetching data
+    Scaffold(
+      body: data != null
+        ? ListView.builder(itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(data[index]["title"]),
+              subtitle: Text("ID: ${data[index]["id"]}"),
+              leading: Image.network(data[index]["url"]),
+              // leading: Ima,
+            );
+          })
+        : Center(
+            child: CircularProgressIndicator(),
           ),
-      ),
-
-    floatingActionButton: FloatingActionButton.extended(
-        onPressed: (){
-          print("object");
-          setState(() {
-            myname = myTextController.text;
-          });
-        }, 
+    )
