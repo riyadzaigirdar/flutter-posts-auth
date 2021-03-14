@@ -4,13 +4,30 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+    var myname = "Here your name will appear";
 
-A few resources to get you started if this is your first Flutter project:
+    TextEditingController myTextController = new TextEditingController();
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+    void doSomething(text){
+      setState(() {
+        myname = text;
+        });
+      }
+    
+    TextField(
+          controller: myTextController,
+          onChanged: (text)=>doSomething(text),
+          decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          hintText: "Enter Some Text",
+          labelText: "Name"
+          ),
+      ),
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    floatingActionButton: FloatingActionButton.extended(
+        onPressed: (){
+          print("object");
+          setState(() {
+            myname = myTextController.text;
+          });
+        }, 

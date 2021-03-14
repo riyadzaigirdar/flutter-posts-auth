@@ -12,94 +12,184 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHome extends StatelessWidget {
+class MyHome extends StatefulWidget {
+  @override
+  _MyHomeState createState() => _MyHomeState();
+}
+
+class _MyHomeState extends State<MyHome> {
+  var myname = "Here your name will appear";
+  var myemail = "your email will appear here";
+
+  TextEditingController myTextController = new TextEditingController();
+  TextEditingController myEmailController = new TextEditingController();
+  //void doSomething(text) {
+  //  setState(() {
+  //    myname = text;
+  //  });
+  //}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Align(
-              alignment: Alignment.centerLeft, child: Text("My Awesome App")),
-        ),
-        body: ListView(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  // margin: const EdgeInsets.all(10.0),
-                  // padding: const EdgeInsets.all(20.0),
-                  // decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red),
-                  decoration: BoxDecoration(
-                      color: Colors.green,
-                      border: Border.all(
-                        color: Colors.red[500],
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Colors.pink, Colors.yellow]),
-                      boxShadow: [
-                        BoxShadow(color: Colors.black, blurRadius: 10)
-                      ]),
-                  margin: const EdgeInsets.all(10.0),
-                  // color: Colors.red,
-                  width: 150,
-                  height: 100,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                            margin: EdgeInsets.only(bottom: 10.0),
-                            child: Text("Total Candidate")),
-                        Text("500")
-                      ]),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(10.0),
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                  // color: Colors.red,
-                  width: 150,
-                  height: 100,
-                  child: Center(
-                      child: Text(
-                    "hello hello hello hello",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  )),
-                )
-              ],
+      // backgroundColor: Colors.grey,
+      appBar: AppBar(
+        title: Align(
+            alignment: Alignment.centerLeft, child: Text("My Awesome App")),
+      ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Container(
+              // decoration:BoxDecoration(
+              //   borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              //   border: Border.all(
+              //     color: Colors.red[500],
+              //   )
+              //   ),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    constraints: BoxConstraints.expand(height: 200.0),
+                    // decoration: BoxDecoration(
+                    //   color: Colors.red,
+                    //   border: Border.all(color: Colors.red[500],),
+                    //   borderRadius: BorderRadius.all(Radius.circular(50.0))
+                    //   ),
+                    child: Image.asset(
+                      "assets/awesome.jpg",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Text(myTextController.text),
+                  Text(myname),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: TextField(
+                      controller: myTextController,
+                      //onChanged: (text) => doSomething(text),
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: "Enter name",
+                          labelText: "Name"),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: TextField(
+                      controller: myEmailController,
+                      //onChanged: (text) => doSomething(text),
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: "Enter email",
+                          labelText: "email"),
+                    ),
+                  )
+                ],
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.all(10.0),
-                  decoration: BoxDecoration(
-                      color: Colors.blue,
-                      border: Border.all(color: Colors.red),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                  // color: Colors.red,
-                  width: 150,
-                  height: 100,
-                  child: Center(child: Text("hello hello")),
+          ),
+        ),
+      ),
+      drawer: Container(
+        // width: 100,
+        width: 350,
+        child: Drawer(
+          // elevation: 100,
+          child: ListView(
+            padding: const EdgeInsets.all(0),
+            children: [
+              // UserAccountsDrawerHeader(
+              //   accountName: Text("riyad zaigirdar"),
+              //   accountEmail: Text("riyadzaigir280@gmail.com"),
+              //   currentAccountPicture: CircleAvatar(
+              //     backgroundImage: NetworkImage("https://avatars.githubusercontent.com/u/42799939?s=460&u=975ca8612ee36f030fc1952cd7ded42ce01efb69&v=4"),
+              //     ),
+              //   ),
+              MyDrawerHeader("riyad zaigirdar", "riyadzaigir280@gmail.com",
+                  "https://avatars.githubusercontent.com/u/42799939?s=460&u=975ca8612ee36f030fc1952cd7ded42ce01efb69&v=4"),
+              // DrawerHeader(
+              //   child: Text("My Drawer"),
+              //   decoration: BoxDecoration(color: Colors.purple),
+              //   ),
+              ListTile(
+                leading: Icon(Icons.person),
+                title: Text("Riyad Zaigirdar"),
+                subtitle: Text("Software Developer"),
+                trailing: GestureDetector(
+                  child: Icon(Icons.edit),
                 ),
-                Container(
-                  margin: const EdgeInsets.all(10.0),
-                  decoration: BoxDecoration(
-                      color: Colors.yellow,
-                      border: Border.all(color: Colors.black),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                  //color: Colors.red,
-                  width: 150,
-                  height: 100,
-                  child: Center(child: Text("hello hello")),
-                )
-              ],
-            )
-          ],
-        ));
+                onTap: () {},
+                onLongPress: () {},
+              ),
+              ListTile(
+                leading: Icon(Icons.email),
+                title: Text("Email"),
+                subtitle: Text("riyadzaigir280@gmail.com"),
+                trailing: Icon(Icons.electric_bike),
+                onTap: () {},
+                onLongPress: () {},
+              )
+            ],
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          print("object");
+          myname = myTextController.text;
+          myemail = myEmailController.text;
+          setState(() {});
+          print(myemail);
+          print(myname);
+        },
+        tooltip: "add a image",
+        icon: Icon(Icons.thumb_up),
+        label: Text("Like"),
+        backgroundColor: Colors.green,
+      ),
+      //   floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: () {
+      //     // Add your onPressed code here!
+      //   },
+      //   label: Text('Approve'),
+      //   icon: Icon(Icons.thumb_up),
+      //   backgroundColor: Colors.pink,
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+    );
+  }
+}
+
+class MyDrawerHeader extends StatelessWidget {
+  final String name;
+  final String email;
+  final String imagePath;
+
+  MyDrawerHeader(this.name, this.email, this.imagePath);
+
+  @override
+  Widget build(BuildContext context) {
+    return UserAccountsDrawerHeader(
+        accountName: Text(name),
+        accountEmail: Text(email),
+        currentAccountPicture:
+            CircleAvatar(backgroundImage: NetworkImage(imagePath)));
+    // return Container(
+    //   color: Colors.red,
+    //   margin: const EdgeInsets.all(0.0),
+    //   padding: const EdgeInsets.all(60.0),
+    //   child: Text("Kalke Mobile App")
+    //   // Row(
+    //   //   children: [],
+    //   //   ),
+    // );
   }
 }
