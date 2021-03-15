@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class MyHome extends StatefulWidget {
+  static const String routeName = "/homepage";
   @override
   _MyHomeState createState() => _MyHomeState();
 }
@@ -51,19 +52,29 @@ class _MyHomeState extends State<MyHome> {
       appBar: AppBar(
         title: Align(
             alignment: Alignment.centerLeft, child: Text("My Awesome App")),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.exit_to_app,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          )
+        ],
       ),
       body: data != null
-          ? GridView.builder(
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          ? ListView.builder(
+              // gridDelegate:
+              //     SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(data[index]["title"]),
-                  subtitle: Text("ID: ${data[index]["id"]}"),
-                  leading: Image.network(data[index]["url"]),
-                  // leading: Ima,
-                );
-              })
+              return ListTile(
+                title: Text(data[index]["title"]),
+                subtitle: Text("ID: ${data[index]["id"]}"),
+                leading: Image.network(data[index]["url"]),
+                // leading: Ima,
+              );
+            })
           : Center(
               child: CircularProgressIndicator(),
             ),
