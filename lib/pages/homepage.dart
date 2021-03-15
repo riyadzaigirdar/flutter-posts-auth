@@ -53,17 +53,17 @@ class _MyHomeState extends State<MyHome> {
             alignment: Alignment.centerLeft, child: Text("My Awesome App")),
       ),
       body: data != null
-          ? GridView.builder(
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(data[index]["title"]),
-                  subtitle: Text("ID: ${data[index]["id"]}"),
-                  leading: Image.network(data[index]["url"]),
-                  // leading: Ima,
-                );
-              })
+          ? ListView.builder(itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(data[index]["title"]),
+                subtitle: Text("ID: ${data[index]["id"]}"),
+                leading: FadeInImage.assetNetwork(
+                  placeholder: 'assets/loading.gif',
+                  image: data[index]["url"],
+                  // Image.network(data[index]["url"])
+                ),
+              );
+            })
           : Center(
               child: CircularProgressIndicator(),
             ),

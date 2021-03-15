@@ -6,59 +6,62 @@ A new Flutter project.
 
     flutter packages get
 
-## Fetch data using http in widget load
+## login page
 
-    var url = "https://jsonplaceholder.typicode.com/photos";
-    var data;
+    class _LoginPageState extends State<LoginPage> {
+      final formKey = GlobalKey<FormState>();
 
-    @override
-    void initState() {
-      super.initState();
-      fetchData();
-    }
+      final _usernameController = TextEditingController();
 
-    fetchData() async {
-      var res = await http.get(Uri.parse(url));
-      data = jsonDecode(res.body);
-      setState(() {});
-      // print(data);
-    }
+      final _passwordController = TextEditingController();
 
-    @override
-    void dispose() {
-      super.dispose();
-    }
-
-# Then show it in list view and show loading when fetching data
-    Scaffold(
-      body: data != null
-        ? ListView.builder(itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(data[index]["title"]),
-              subtitle: Text("ID: ${data[index]["id"]}"),
-              leading: Image.network(data[index]["url"]),
-              // leading: Ima,
-            );
-          })
-        : Center(
-            child: CircularProgressIndicator(),
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text("Login Page"),
           ),
-    )
-
-# you can use grid view build
-
-    body: data != null
-      ? GridView.builder(
-          gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(data[index]["title"]),
-              subtitle: Text("ID: ${data[index]["id"]}"),
-              leading: Image.network(data[index]["url"]),
-              // leading: Ima,
-            );
-          })
-      : Center(
-          child: CircularProgressIndicator(),
-        ),
+          body: SingleChildScrollView(
+            child: Form(
+              key: formKey,
+              child: Center(
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          controller: _usernameController,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                              hintText: "Enter Username", labelText: "Username"),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        TextFormField(
+                          controller: _passwordController,
+                          keyboardType: TextInputType.text,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                              hintText: "Enter Password", labelText: "Password"),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        RaisedButton(
+                          onPressed: () {},
+                          child: Text("Sign in"),
+                          color: Colors.orange,
+                          textColor: Colors.white,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+    }
