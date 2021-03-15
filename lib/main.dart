@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:posts/pages/homepage.dart';
+import 'package:posts/pages/homepageFB.dart';
 import 'package:posts/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'pages/homepage.dart';
@@ -14,15 +15,16 @@ Future main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print(Constants.prefs.getBool("loggedIn"));
     return MaterialApp(
       // home: LoginPage(),
       initialRoute: Constants.prefs.getBool("loggedIn") == true
-          ? MyHome.routeName
+          ? MyHomeFB.routeName
           : LoginPage.routeName,
       theme: ThemeData(primarySwatch: Colors.purple),
       routes: {
         LoginPage.routeName: (context) => LoginPage(),
-        MyHome.routeName: (context) => MyHome()
+        MyHomeFB.routeName: (context) => MyHomeFB()
       },
     );
   }
