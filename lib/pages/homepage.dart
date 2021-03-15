@@ -2,7 +2,10 @@ import "package:flutter/material.dart";
 import 'package:posts/drawer.dart';
 // import 'package:posts/namecard.dart';
 import 'package:http/http.dart' as http;
+import 'package:posts/pages/login.dart';
 import 'dart:convert';
+
+import 'package:posts/utils/constants.dart';
 
 class MyHome extends StatefulWidget {
   static const String routeName = "/homepage";
@@ -58,7 +61,9 @@ class _MyHomeState extends State<MyHome> {
               Icons.exit_to_app,
             ),
             onPressed: () {
-              Navigator.pop(context);
+              Constants.prefs.setBool("loggedIn", false);
+              // Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, LoginPage.routeName);
             },
           )
         ],
@@ -71,8 +76,9 @@ class _MyHomeState extends State<MyHome> {
               return ListTile(
                 title: Text(data[index]["title"]),
                 subtitle: Text("ID: ${data[index]["id"]}"),
-                leading: Image.network(
-                  data[index]["url"],
+                leading: FadeInImage.assetNetwork(
+                  placeholder: 'assets/loading.gif',
+                  image: data[index]["url"],
                 ),
                 // leading: Ima,
               );
