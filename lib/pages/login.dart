@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
             Image.asset(
               "assets/awesome.jpg",
               fit: BoxFit.cover,
-              color: Colors.black.withOpacity(0.7),
+              color: Colors.black.withOpacity(0.6),
               colorBlendMode: BlendMode.darken,
             ),
             Center(

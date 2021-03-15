@@ -71,7 +71,9 @@ class _MyHomeState extends State<MyHome> {
               return ListTile(
                 title: Text(data[index]["title"]),
                 subtitle: Text("ID: ${data[index]["id"]}"),
-                leading: Image.network(data[index]["url"]),
+                leading: Image.network(
+                  data[index]["url"],
+                ),
                 // leading: Ima,
               );
             })
