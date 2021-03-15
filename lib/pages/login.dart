@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:posts/pages/homepage.dart';
+import 'package:posts/pages/homepageFB.dart';
 import 'package:posts/utils/constants.dart';
 
 class LoginPage extends StatefulWidget {
@@ -18,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(Constants.prefs.getBool("loggedIn"));
     return Scaffold(
         appBar: AppBar(
           title: Text("Login Page"),
@@ -76,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                                 //         );
                                 // Navigator.pushNamed(context, MyHome.routeName);
                                 Navigator.pushReplacementNamed(
-                                    context, MyHome.routeName);
+                                    context, MyHomeFB.routeName);
                               },
                               child: Text("Sign in"),
                               color: Colors.orange,
