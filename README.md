@@ -2,63 +2,28 @@
 
 A new Flutter project.
 
-# Install delependencies like npm i
+# for cocapods error
 
-    flutter packages get
+    sudo gem install cocoapods
 
-## Fetch data using http in widget load
+## how store user login in cache
 
-    var url = "https://jsonplaceholder.typicode.com/photos";
-    var data;
+    import 'package:shared_preferences/shared_preferences.dart';
 
-    @override
-    void initState() {
-      super.initState();
-      fetchData();
+    class Constants {
+      static SharedPreferences prefs;
     }
 
-    fetchData() async {
-      var res = await http.get(Uri.parse(url));
-      data = jsonDecode(res.body);
-      setState(() {});
-      // print(data);
+## set the shared memory in run app
+    Future main() async {
+      WidgetsFlutterBinding.ensureInitialized();
+      Constants.prefs = await SharedPreferences.getInstance();
+      runApp(MyApp());
     }
 
-    @override
-    void dispose() {
-      super.dispose();
-    }
+## now set and get
 
-# Then show it in list view and show loading when fetching data
-    Scaffold(
-      body: data != null
-        ? ListView.builder(itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(data[index]["title"]),
-              subtitle: Text("ID: ${data[index]["id"]}"),
-              leading: Image.network(data[index]["url"]),
-              // leading: Ima,
-            );
-          })
-        : Center(
-            child: CircularProgressIndicator(),
-          ),
-    )
+    Constants.pref.setBool("loggedIn", true)
 
-# you can use grid view build
-
-    body: data != null
-      ? GridView.builder(
-          gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(data[index]["title"]),
-              subtitle: Text("ID: ${data[index]["id"]}"),
-              leading: Image.network(data[index]["url"]),
-              // leading: Ima,
-            );
-          })
-      : Center(
-          child: CircularProgressIndicator(),
-        ),
+    Constants.pref.getBool("loggedIn", false)
+    
