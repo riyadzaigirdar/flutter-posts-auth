@@ -6,59 +6,37 @@ A new Flutter project.
 
     flutter packages get
 
-## Fetch data using http in widget load
+# Navigator and push route
 
-    var url = "https://jsonplaceholder.typicode.com/photos";
-    var data;
+## set routes in materialapp 
 
-    @override
-    void initState() {
-      super.initState();
-      fetchData();
-    }
+    MaterialApp(
+      // home: LoginPage(),
+      initialRoute: LoginPage.routeName,
+      theme: ThemeData(primarySwatch: Colors.purple),
+      routes: {
+        LoginPage.routeName: (context) => LoginPage(),
+        MyHome.routeName: (context) => MyHome()
+      },
+    );
 
-    fetchData() async {
-      var res = await http.get(Uri.parse(url));
-      data = jsonDecode(res.body);
-      setState(() {});
-      // print(data);
-    }
+## set static route in widgets
 
-    @override
-    void dispose() {
-      super.dispose();
-    }
+    static const String routeName = "/login";
 
-# Then show it in list view and show loading when fetching data
-    Scaffold(
-      body: data != null
-        ? ListView.builder(itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(data[index]["title"]),
-              subtitle: Text("ID: ${data[index]["id"]}"),
-              leading: Image.network(data[index]["url"]),
-              // leading: Ima,
-            );
-          })
-        : Center(
-            child: CircularProgressIndicator(),
-          ),
-    )
+    static const String routeName = "/homepage";
 
-# you can use grid view build
+## then easy way (no props passed)
 
-    body: data != null
-      ? GridView.builder(
-          gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(data[index]["title"]),
-              subtitle: Text("ID: ${data[index]["id"]}"),
-              leading: Image.network(data[index]["url"]),
-              // leading: Ima,
-            );
-          })
-      : Center(
-          child: CircularProgressIndicator(),
-        ),
+    Navigator.pushNamed(context, MyHome.routeName);
+
+## hard way (props passed)
+
+     Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => MyHome(...pass something))
+          );
+
+
+    
