@@ -7,13 +7,8 @@ import 'dart:convert';
 
 import 'package:posts/utils/constants.dart';
 
-class MyHomeFB extends StatefulWidget {
+class MyHomeFB extends StatelessWidget {
   static const String routeName = "/myhomeFB";
-  @override
-  _MyHomeFBState createState() => _MyHomeFBState();
-}
-
-class _MyHomeFBState extends State<MyHomeFB> {
   var myname = "Here your name will appear";
   var myemail = "your email will appear here";
 
@@ -25,9 +20,6 @@ class _MyHomeFBState extends State<MyHomeFB> {
   //  });
   //}
 
-  var url = "https://jsonplaceholder.typicode.com/photos";
-  var data;
-
 // nh_h08_riyad
 // riyad{"json":1}
   // @override
@@ -37,7 +29,11 @@ class _MyHomeFBState extends State<MyHomeFB> {
   // }
 
   Future fetchData() async {
-    var res = await http.get(Uri.parse(url));
+    var url = "https://jsonplaceholder.typicode.com/photos";
+    var data;
+    var res = await http.get(
+      Uri.parse(url),
+    );
     data = jsonDecode(res.body);
     // setState(() {});
     // print(data);
@@ -78,20 +74,27 @@ class _MyHomeFBState extends State<MyHomeFB> {
                 child: Text("Fetch Something"),
               );
             case ConnectionState.active:
+
             case ConnectionState.waiting:
               return Center(
                 child: CircularProgressIndicator(),
               );
             case ConnectionState.done:
+              if (snapshot.hasError) {
+                print("object");
+                return Center(
+                  child: Text("An Error Occurred"),
+                );
+              }
               return ListView.builder(
                 itemBuilder: (context, index) {
                   return ListTile(
                     leading: FadeInImage.assetNetwork(
                       placeholder: 'assets/loading.gif',
-                      image: data[index]["url"],
+                      image: snapshot.data[index]["url"],
                     ),
-                    title: data[index]["title"],
-                    subtitle: data[index]["id"],
+                    title: snapshot.data[index]["title"],
+                    subtitle: snapshot.data[index]["id"],
                   );
                 },
               );
@@ -114,7 +117,7 @@ class _MyHomeFBState extends State<MyHomeFB> {
           print("object");
           myname = myTextController.text;
           myemail = myEmailController.text;
-          setState(() {});
+          // setState(() {});
           print(myemail);
           print(myname);
         },

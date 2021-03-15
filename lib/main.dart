@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.purple),
       routes: {
         LoginPage.routeName: (context) => LoginPage(),
-        MyHomeFB.routeName: (context) => MyHome()
+        MyHomeFB.routeName: (context) => MyHomeFB()
       },
     );
   }
